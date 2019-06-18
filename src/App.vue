@@ -1,33 +1,30 @@
 <template>
   <div id="app">
     <ul>
-      <li v-for="user in users">{{ user.name }}</li>
+      <li v-for="user in users" v-bind:key="user.id">{{ user.name }}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { lazyInject } from './container'
-import { TYPES } from './types'
+import Vue from "vue";
+import Component from "vue-class-component";
+import { lazyInject } from "./container";
+import { TYPES } from "./types";
 
 @Component
 export default class App extends Vue {
-  users = []
+  users = [];
 
-  @lazyInject(TYPES.users)
-  usersService
+  @lazyInject(TYPES.UsersService)
+  usersService;
 
   created() {
-    this.usersService.getUsers()
-      .then(data => {
-        this.users = data
-      })
-
+    this.usersService.getUsers().then(data => {
+      this.users = data;
+    });
   }
 }
-
 </script>
 
 
@@ -44,7 +41,7 @@ export default class App extends Vue {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
